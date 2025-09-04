@@ -1,0 +1,68 @@
+{templateType Brosland\Modals\UI\ModalTemplate}
+
+{varType Bon\Users\Services\Account\AccountDto $account}
+{varType Bon\App\UI\User\Account\Avatar\AvatarModal $control}
+
+{extends $modalTemplate}
+
+{block #title}{translator $control::translationPrefix()}{_avatar}{/translator}{/block}
+
+{block #body}
+	{include #parent}
+	<div data-control="App.User.Navigation.Avatar.AvatarModal">
+		<div
+				n:translator="$control::translationPrefix()"
+				class="d-flex flex-column align-items-center"
+		>
+			<div class="drop-area">
+				<div class="d-flex flex-column align-items-center gap-3">
+					<div class="bg-white border rounded-circle shadow-sm square" style="width:10rem;">
+						<div class="square-content">
+							{$account|users_accountAvatar:'rounded-circle'}
+						</div>
+					</div>
+					<h3>{_dragImageHere}</h3>
+				</div>
+			</div>
+			<div class="upload-process" style="display:none">
+				<div class="d-flex flex-column align-items-center gap-3">
+					<div class="bg-white border rounded-circle shadow-sm square" style="width:10rem;">
+						<div class="square-content">
+							{$account|users_accountAvatar:'rounded-circle'}
+						</div>
+					</div>
+					<h3>{_uploaded} <span data-placeholder="uploaded">0%</span></h3>
+				</div>
+			</div>
+			<hr class="mt-5">
+			<div class="row gap-2 justify-content-center w-100">
+				<div class="d-flex flex-column gap-2 col-sm-6">
+					<a
+							n:if="$account->avatar"
+                        	n:href="remove!"
+							class="ajax btn btn-outline-primary"
+							data-action="remove"
+							role="button"
+					>
+						<i class="fa-light fa-trash"></i>{_remove}
+					</a>
+					<button
+							class="btn btn-outline-primary"
+							data-action="browse"
+							style="display:{if $account->avatar}none{else}flex{/if}"
+							type="button"
+					>
+						<i class="fa-light fa-upload"></i>{_uploadImage}
+					</button>
+					<button
+							class="btn btn-light"
+							data-action="cancel"
+							style="display:none"
+							type="button"
+					>{_cancel}</button>
+				</div>
+			</div>
+			{control uploader}
+		</div>
+	</div>
+{/block}

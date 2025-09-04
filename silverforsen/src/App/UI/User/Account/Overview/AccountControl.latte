@@ -1,0 +1,79 @@
+{varType Bon\App\UI\User\Account\Overview\AccountControl $control}
+{varType Bon\Users\Services\Identity\IdentityDto $identity}
+{varType Bon\Memberships\Services\Membership\MembershipDto|null $membership}
+{varType Bon\Verifications\Services\Verification\VerificationDto $verification}
+
+<div n:translator="$control::translationPrefix()" class="card">
+    <div class="card-header">
+        <div class="d-flex align-items-center justify-content-between gap-5">
+            <h2>{_account}</h2>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="list">
+            <div class="list-item">
+                {include #owner}
+                <div class="list-item-separator"></div>
+            </div>
+            <div class="list-item">
+                {include #membership}
+                <div class="list-item-separator"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{define #owner}
+    <a href="{plink :User:Account:Owner:}" class="list-item-btn">
+        <div class="d-flex align-items-center gap-3">
+            <div class="d-none d-sm-block fa-stack fs-5 text-secondary">
+                <i class="fa-thin fa-circle fa-stack-2x" aria-hidden="true"></i>
+                <span class="fa-stack-1x" aria-hidden="true">
+                    {$identity->account->owner->type|users_subjectIcon}
+                </span>
+            </div>
+            <dl class="d-flex flex-column flex-grow-1">
+                <dt class="align-self-start">{_owner}</dt>
+                <dd class="d-flex flex-column flex-sm-row align-items-sm-end justify-content-between">
+                    <span>{$identity->account->owner->name}</span>
+                    <small class="text-secondary">
+                        {_verificationExpiresAt}
+                            {$verification?->expirationDate|date:'M j, Y'}
+                    </small>
+                </dd>
+            </dl>
+            <div class="ms-auto me-2">
+                <i class="fa-light fa-chevron-right"></i>
+            </div>
+        </div>
+    </a>
+{/define}
+
+{define #membership}
+    <a href="{plink :User:Account:Membership:}" class="list-item-btn">
+        <div class="d-flex align-items-center gap-3">
+            <div class="d-none d-sm-block fa-stack fs-5 text-secondary">
+                <i class="fa-thin fa-circle fa-stack-2x" aria-hidden="true"></i>
+                <i class="fa-light fa-stack-1x fa-users"></i>
+            </div>
+            <dl class="d-flex flex-column flex-grow-1">
+                <dt class="align-self-start">{_membership}</dt>
+                <dd n:if="!$membership">{_becomeMember}</dd>
+                <dd
+                        n:if="$membership"
+                        class="d-flex flex-column flex-sm-row align-items-sm-end justify-content-between"
+                >
+                    {capture $membershipFee}{$membership->membershipType->fee|money}{/capture}
+                    <span>{_yourCurrentPlan, ['fee' => $membershipFee]|noescape}</span>
+                    <small class="text-secondary">
+                        {_nextPayment}
+                        {$membership->expirationDate|date:'M j, Y'}
+                    </small>
+                </dd>
+            </dl>
+            <div class="ms-auto me-2">
+                <i class="fa-light fa-chevron-right"></i>
+            </div>
+        </div>
+    </a>
+{/define}

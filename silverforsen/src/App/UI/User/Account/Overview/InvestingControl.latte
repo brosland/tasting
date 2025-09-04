@@ -1,0 +1,30 @@
+{varType Bon\App\UI\User\Account\Overview\InvestingControl $control}
+{varType Bon\Funds\Services\Account\Summary\InvestingAccountSummaryDto $accountSummary}
+
+<div n:translator="$control::translationPrefix()" class="card">
+    <div class="card-header">
+        <div class="d-flex align-items-center justify-content-between gap-5">
+            <h2>{_investing}</h2>
+            <a href="{plink :User:Investing:Overview:}" class="btn btn-icon btn-light">
+                <i class="fa-light fa-chevron-right" aria-hidden="true"></i>
+            </a>
+        </div>
+    </div>
+    <div class="card-body d-flex flex-column gap-5">
+        <div class="d-flex flex-column flex-sm-row align-items-center align-items-sm-end justify-content-between">
+            <dl class="text-center text-sm-start mb-5 mb-sm-0">
+                <dt class="text-secondary">{_currentValue}</dt>
+                <dd class="h3">{$accountSummary->accountValue|money}</dd>
+                <dd class="small text-secondary">{$accountSummary->accountValueWithoutFees|money} {_withoutFees}</dd>
+            </dl>
+            <dl class="text-center text-sm-end">
+                <dt class="text-secondary">{_currentGain}</dt>
+                <dd class="h3">{$accountSummary->gain|money:true}</dd>
+                <dd class="small text-secondary">
+                    {$accountSummary->roi|percentage:2,true} {_currentRoi}
+                </dd>
+            </dl>
+        </div>
+        {control investments}
+    </div>
+</div>

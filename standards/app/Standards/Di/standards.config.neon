@@ -1,0 +1,61 @@
+# API ##########################################################################
+- App\Standards\Api\Controllers\Standards\StandardFindController
+- App\Standards\Api\Controllers\Standards\StandardGetController
+
+
+
+# CLI ##########################################################################
+- App\Standards\Cli\IcsImportCommand
+
+
+
+# DOMAIN #######################################################################
+- App\Standards\Domain\Category\CategoryDtoFactory
+
+- App\Standards\Domain\Ics\IcsDtoFactory
+
+- App\Standards\Domain\Standard\StandardDtoFactory
+- App\Standards\Domain\Standard\StandardRefDtoFactory
+
+
+
+# INFRASTRUCTURE ###############################################################
+- App\Standards\Infrastructure\Doctrine\Category\CategoryIdDbalType
+- App\Standards\Infrastructure\Doctrine\Category\DoctrineCategoryRepository
+
+- App\Standards\Infrastructure\Doctrine\Ics\DoctrineIcsRepository
+- App\Standards\Infrastructure\Doctrine\Ics\IcsCodeDbalType
+
+- App\Standards\Infrastructure\Doctrine\Standard\DoctrineStandardRepository
+- App\Standards\Infrastructure\Doctrine\Standard\StandardIdDbalType
+- App\Standards\Infrastructure\Doctrine\Standard\StandardTypeDbalType
+- App\Standards\Infrastructure\Doctrine\Standard\Ics\DoctrineStandardIcsRepository
+- App\Standards\Infrastructure\Doctrine\Standard\Replacement\DoctrineStandardReplacementRepository
+
+- App\Standards\Infrastructure\Symfony\Ics\IcsCodeNormalizer
+- App\Standards\Infrastructure\Symfony\Standard\StandardDtoNormalizer
+
+
+
+# SECURITY #####################################################################
+
+# SERVICES #####################################################################
+- App\Standards\Services\Category\CategoryCreateService
+- App\Standards\Services\Category\CategoryDeleteService
+- App\Standards\Services\Category\CategoryFindService
+- App\Standards\Services\Category\CategoryGetService
+- App\Standards\Services\Category\CategoryUpdateService
+
+- App\Standards\Services\Ics\IcsCreateService
+- App\Standards\Services\Ics\IcsDeleteService
+- App\Standards\Services\Ics\IcsFindService
+- App\Standards\Services\Ics\IcsGetService
+- App\Standards\Services\Ics\IcsUpdateService
+
+- App\Standards\Services\Standard\StandardCreateService
+- App\Standards\Services\Standard\StandardDeleteService
+- App\Standards\Services\Standard\StandardFindService
+- App\Standards\Services\Standard\StandardGetService
+
+- App\Standards\Services\Standard\Ics\StandardIcsAddService
+- App\Standards\Services\Standard\Ics\StandardIcsRemoveService

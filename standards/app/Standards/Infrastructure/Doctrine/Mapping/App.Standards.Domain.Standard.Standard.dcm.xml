@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+	xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                   https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd"
+>
+	<entity
+		name="App\Standards\Domain\Standard\Standard"
+		table="standards__standard"
+	>
+		<indexes>
+			<index fields="code"/>
+			<index fields="title"/>
+		</indexes>
+
+		<id name="pk" type="integer">
+			<generator strategy="AUTO"/>
+		</id>
+
+		<field name="id" type="app.standards.standard.id" unique="true"/>
+
+		<field name="type" type="app.standards.standard.type"/>
+
+		<field name="catalogueNumber" type="integer" unique="true"/>
+
+		<field name="code"/>
+
+		<field name="title" length="512"/>
+
+		<field name="description" type="text"/>
+
+		<field name="language" type="app.common.language.code" nullable="true"/>
+
+		<field name="publicationDate" type="date_immutable" nullable="true"/>
+
+		<field name="approvalDate" type="date_immutable" nullable="true"/>
+
+		<field name="effectiveDate" type="date_immutable" nullable="true"/>
+
+		<field name="withdrawalDate" type="date_immutable" nullable="true"/>
+
+		<field name="announcementDate" type="date_immutable" nullable="true"/>
+
+		<field name="isValid" type="boolean"/>
+
+		<field name="postProcessRequired" type="boolean"/>
+
+		<field name="sourceHash" length="32"/>
+
+		<many-to-one
+			field="parent"
+			target-entity="App\Standards\Domain\Standard\Standard"
+		/>
+
+		<one-to-many
+			field="revisions"
+			mapped-by="parent"
+			target-entity="App\Standards\Domain\Standard\Standard"
+		>
+			<cascade>
+				<cascade-remove/>
+			</cascade>
+		</one-to-many>
+
+		<one-to-many
+			field="ics"
+			index-by="ics"
+			mapped-by="standard"
+			orphan-removal="true"
+			target-entity="App\Standards\Domain\Standard\Ics\StandardIcs"
+		>
+			<cascade>
+				<cascade-persist/>
+				<cascade-remove/>
+			</cascade>
+		</one-to-many>
+	</entity>
+</doctrine-mapping>

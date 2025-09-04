@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+	xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                   https://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd"
+>
+	<entity
+		name="App\Standards\Domain\Standard\Replacement\StandardReplacement"
+		table="standards__standard_replacement"
+	>
+		<id name="pk" type="integer">
+			<generator strategy="AUTO"/>
+		</id>
+
+		<many-to-one
+			field="standard"
+			target-entity="App\Standards\Domain\Standard\Standard"
+		>
+			<join-column on-delete="CASCADE"/>
+		</many-to-one>
+
+		<many-to-one
+			field="replacement"
+			target-entity="App\Standards\Domain\Standard\Standard"
+		>
+			<join-column on-delete="CASCADE"/>
+		</many-to-one>
+	</entity>
+</doctrine-mapping>

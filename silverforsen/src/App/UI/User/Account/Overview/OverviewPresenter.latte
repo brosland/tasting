@@ -1,0 +1,54 @@
+{templateType Bon\App\UI\User\UserPresenterTemplate}
+
+{varType Bon\App\UI\User\Account\Overview\OverviewPresenter $control}
+{varType Bon\Users\Services\Account\Value\AccountValueDto $accountValue}
+{varType Brick\Money\Money $accountValueDelta}
+
+{block #title}{$identity->account->name}{/block}
+
+{block #content}
+    {include #parent}
+    <div n:translator="$control::translationPrefix()" class="main-header">
+        <div class="container-xxl">
+            <div class="row justify-content-center">
+                <div class="col-xxl-9">
+                    <div class="d-sm-flex align-items-end justify-content-between my-5">
+                        <div class="d-flex align-items-center justify-content-center justify-content-sm-start gap-3 pb-5 pb-sm-0">
+                            <div
+                                    class="border rounded-circle shadow-sm square"
+                                    style="width:4rem;"
+                            >
+                                <div class="square-content rounded-circle">
+                                    {$identity->account|users_accountAvatar:'rounded-circle'}
+                                </div>
+                            </div>
+                            <div>
+                                <h1>{$identity->account->name}</h1>
+                                <div class="small text-secondary" data-bs-toggle="tooltip" title="{_accountRating}">
+                                    {$identity->account->rating|users_accountRating}
+                                </div>
+                            </div>
+                        </div>
+                        <dl class="text-center text-sm-end">
+                            <dt>{_currentValue}</dt>
+                            <dd class="h1">{$accountValue->value|money}</dd>
+                            <dd n:class="'text-sm-end', ($accountValueDelta->getAmount()|numberColor)">
+                                {$accountValueDelta|ratio:$accountValue->value|percentage}
+                                <small class="text-secondary">last month</small>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div n:translator="$control::translationPrefix()" class="container-xxl">
+        <div class="row justify-content-center">
+            <div class="col-xxl-9 d-flex flex-column gap-4">
+                {control investing}
+                {control wallets}
+                {control account}
+            </div>
+        </div>
+    </div>
+{/block}

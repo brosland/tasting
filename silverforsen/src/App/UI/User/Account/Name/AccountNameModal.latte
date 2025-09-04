@@ -1,0 +1,24 @@
+{templateType Brosland\Modals\UI\ModalTemplate}
+
+{varType Bon\App\UI\User\Account\Name\AccountNameModal $control}
+
+{extends $modalTemplate}
+
+{block #title}{translator $control::translationPrefix()}{_accountName}{/translator}{/block}
+
+{block #body}
+    {include #parent}
+    <form n:name="form" class="ajax">
+        <div class="mb-5">
+            <div class="form-floating">
+                <input n:name="name" class="form-control" autofocus placeholder="">
+                <label n:name="name"/>
+            </div>
+            <div class="text-center invalid-feedback">{inputError name}</div>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-center">
+            <input n:name="confirm" class="btn btn-outline-primary col-12 col-sm-6">
+        </div>
+    </form>
+{/block}
